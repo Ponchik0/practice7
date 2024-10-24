@@ -1,0 +1,29 @@
+use std::iter;
+
+fn draw_triangle(base_width: usize) -> impl Iterator<Item = String> {
+    (0..base_width).map(move |i| {
+        let spaces = " ".repeat(base_width - i - 1);
+        let stars = "*".repeat(2 * i + 1);
+        format!("{}{}", spaces, stars)
+    })
+}
+
+fn draw_tree(triangles: usize) {
+    let mut base_width = 1;
+
+    for i in 0..triangles {
+        let triangle_height = i + 3;  // Кожен новий трикутник більший на 2 ряди
+        let triangle = draw_triangle(triangle_height);
+
+        for line in triangle {
+            println!("{}", line);
+        }
+
+        base_width += 2;
+    }
+}
+
+fn main() {
+    let triangles = 5;  // Тут вкажіть кількість трикутників
+    draw_tree(triangles);
+}
